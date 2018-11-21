@@ -29,22 +29,24 @@ ax=axis;
 ddl=std(ax)/2;
 
 dd=zeros(3,size(m));
+up=zeros(3,size(m));
 for i=1:size(m);
   [K,P]=rq(getcameras(m,i));
   dd(:,i)=ddl*P(3,1:3)';
+  up(:,i)=ddl*P(2,1:3)';
 end
 
 
-plot(focals,[color,'*']);
+plot(focals,[color,'.']);
 hold on;axis equal;
 plot(focals,[color,'o']);
 plot(focals,[color,'-']);
-quiver3(pp(1,:),pp(2,:),pp(3,:),dd(1,:), dd(2,:), dd(3,:),[color,'-'],'LineWidth',1.5,'MaxHeadSize',1.5);
+quiver3(pp(1,:),pp(2,:),pp(3,:),dd(1,:), dd(2,:), dd(3,:),1.5,[color,'-'],'LineWidth',1.5,'MaxHeadSize',1.5);
+quiver3(pp(1,:),pp(2,:),pp(3,:),up(1,:), up(2,:), up(3,:),0.5,[color,':'],'LineWidth',0.25,'MaxHeadSize',0);
 
 if holdmode == 0
   hold off;
 end
-
 
 
 
